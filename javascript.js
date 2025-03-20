@@ -8,8 +8,8 @@ let minTemp = document.querySelector('.minTemp');
 let maxTemp = document.querySelector('.maxTemp');
 let img = document.querySelector('img');
 let condition = document.querySelector('.condition');
-let section3 = document.querySelector('.section3');
-
+let section5 = document.querySelector('.section5');
+let progressBar = document.getElementById('progress');
 
 
 input.addEventListener('input', ()=>{
@@ -41,6 +41,7 @@ async function givenLocation(city){
         maxTemp.textContent = '  '+ response2.days[0].tempmax +' °C';
         condition.textContent = response2.currentConditions.conditions;
         console.log(response2);
+        progress.value += 25;
     } catch {
         loc.textContent = 'Non-available location';
         date.textContent =  'Did you mean somewhere else?';
@@ -54,10 +55,12 @@ async function givenLocation2(city){
         const response = await fetch(url);
         const response2 = await response.json();
         let search = response2.currentConditions.icon;
+        progress.value += 25;
         try{
             let gif = await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=O2FYvU8rEHqKUM7mY9wXLGm3Fv9QqBzH&s=${search}`, {mode: 'cors'});
             let gif2 = await gif.json();
             img.src =  gif2.data.images.original.url;
+            progress.value += 10;
         } catch {
             img.src = 'sky.jpg';
         }
@@ -73,17 +76,19 @@ async function givenLocation3(city){
     try{
         let response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}/today?unitGroup=metric&key=MUBVBGDSWHC82R9W4ERRGKRH2&contentType=json`);
         let response2 = await response.json();
+        section5.replaceChildren();
         for (let i=0; i<12; i++){
             let div = document.createElement('div');
             div.textContent = response2.days[0].hours[i+1].temp + ' °C';
-            section3.append(div);
+            section5.append(div);
         }
-        
+        progress.value +=15;
     } catch {
+        section5.replaceChildren();
         for (let i=0; i<12; i++){
             let div = document.createElement('div');
             div.textContent = 'N/A';
-            section3.append(div);
+            section5.append(div);
         }
     }
 }
@@ -93,10 +98,12 @@ async function givenLocation3(city){
 
 button.addEventListener('click', ()=>{
     if (input.value.match(/^[A-Za-z]+$/)){
+        progress.value += 25;
         let city = input.value.toLowerCase();
         givenLocation(city);
         givenLocation2(city);
         givenLocation3(city);
+        
         
     }
 })
