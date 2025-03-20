@@ -8,6 +8,8 @@
     height: 95vh;
     border: 1px solid black;
     margin: auto;
+    border-radius: 5px;
+    background: linear-gradient(to bottom, #3E33A4 0%, #2F80CB 50%, #4B90A3 100%);
     }
 
     .content > div:first-child{
@@ -18,7 +20,7 @@
     .minMaxTemp{
         display: grid;
         grid-template-columns: max-content max-content;
-        margin-left: 15%;
+        margin-left: 25%;
     }
 
     .content{
@@ -27,15 +29,52 @@
         grid-template-rows: 1fr 2fr 2fr 1fr;
     }
 
+    .current-temp{
+        font-size: 40px;
+        text-align: center;
+        padding: 20px;
+        color: darkgoldenrod;
+    }
+
     .section2{
         grid-column: 2/3;
         grid-row: 2/3;
     }
 
-    .section1 > div{
-        font-size: 25px;
-        line-height: 0.5;
+    .section1 > div:not(.current-temp){
+        font-size: 20px;
+        line-height: 1.2;
         text-align: center;
         padding: 20px;
+        color: azure;
     }
 
+    .section3{
+        display:grid;
+        grid-template-columns: repeat(12,1fr);
+        grid-template-rows: repeat(2,1fr);
+        align-items: center;
+        padding-left: 20px;
+        gap: 10px;
+        grid-column: 1/3;
+        grid-row: 3/4;
+        color: azure;
+    }
+
+    
+    .section3 > p{
+        grid-column: 1/13;
+        align-self: self-end;
+    }
+
+    .section3 > {
+        width: 60px;
+        height: 20px;
+    }
+
+    button{
+        background-color: darkgoldenrod;
+        border-radius: 10px;
+        color: azure;
+    }
+    
